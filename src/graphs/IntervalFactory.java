@@ -1,0 +1,83 @@
+package graphs;
+
+import vertex.Vertex;
+
+import java.util.*;
+
+/**
+ * Created by jeremy on 11/8/16.
+ */
+public class IntervalFactory {
+    public static List<Integer> createIntervalList(int size) {
+        List<Integer> list = new ArrayList<>();
+        for (int i = 0; i < 2; i++) {
+            for (int j = 1; j <= size; j++) {
+                list.add(j);
+            }
+        }
+
+        Collections.shuffle(list);
+
+        return list;
+    }
+
+    public static void main(String[] args) {
+        createComplement(createGraph(createIntervalList(10)));
+
+    }
+
+    public static Set<Vertex> createComplement(Set<Vertex> vertexList) {
+        Set<Vertex> output = new TreeSet<>();
+
+        for (Vertex v : vertexList) {
+            Set<Vertex> neighbors = v.getNeighbors();
+
+            Set<Vertex> completeSet = new HashSet<>();
+
+            for (int i = 0 ; i < vertexList.size(); i++) {
+                completeSet.add(new Vertex(i));
+            }
+
+            completeSet.removeAll(neighbors);
+
+            Vertex newVertex = new Vertex(v.getLabel());
+
+            for (Vertex complementNeighbor : completeSet) {
+                newVertex.addVertex(complementNeighbor);
+            }
+
+            output.add(newVertex);
+        }
+
+        System.out.println("Complement graph created\n\t" + output);
+
+        return output;
+    }
+    public static Set<Vertex> createGraph(int size) {
+        return createGraph(createIntervalList(size));
+    }
+
+    public static Set<Vertex> createGraph(List<Integer> intervalList) {
+        Set<Vertex> output = new TreeSet<>();
+        TreeSet<Vertex> activeVertices = new TreeSet<>();
+        for (int i : intervalList) {
+            Vertex v = new Vertex(i);
+            if (activeVertices.contains(v)) {
+                activeVertices.remove(v);
+                continue;
+            }
+
+            for (Vertex vSet : activeVertices) {
+                vSet.addVertex(new Vertex(i));
+                v.addVertex(vSet);
+            }
+
+            activeVertices.add(v);
+            output.add(v);
+        }
+
+        System.out.println("Graph created\n\t" + output);
+
+        return output;
+    }
+}
