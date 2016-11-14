@@ -8,6 +8,7 @@ import com.mxgraph.swing.mxGraphComponent;
 import com.mxgraph.util.mxConstants;
 import com.mxgraph.util.mxUtils;
 import com.mxgraph.view.mxGraph;
+import com.sun.corba.se.impl.naming.cosnaming.InternalBindingValue;
 import vertex.Vertex;
 
 import java.util.*;
@@ -20,15 +21,20 @@ public class Test extends JFrame
      */
     private static final long serialVersionUID = -2707712944901661771L;
 
-    public Test()
+    public Test(Set<Vertex> graph)
     {
         super("Hello, World!");
 
+        getContentPane().add(createGraph(graph));
+
+
+    }
+
+    public mxGraphComponent createGraph(Set<Vertex> intervalGraph) {
         mxGraph graph = new mxGraph();
+
+        graph.setAllowDanglingEdges(false);
         Object parent = graph.getDefaultParent();
-
-        Set<Vertex> intervalGraph = IntervalFactory.createGraph(4);
-
 
         int sideLength = 20;
         int x = 20;
@@ -77,8 +83,14 @@ public class Test extends JFrame
                         }
 
                     }
+
                     completedPairs.add(completedPairSet);
-                    graph.insertEdge(parent, null, "edge" , pairs.get(0), pairs.get(1));
+
+                    try {
+                        graph.insertEdge(parent, null, "" , pairs.get(0), pairs.get(1));
+                    } catch (IndexOutOfBoundsException ex) {
+                        System.out.println(completedPairs);
+                    }
                 }
             }
 
@@ -109,15 +121,26 @@ public class Test extends JFrame
         mxUtils.setCellStyles(graphComponent.getGraph().getModel(),
                 cells.toArray(), mxConstants.STYLE_ENDARROW, mxConstants.NONE);
         graphComponent.setConnectable(false);
-        getContentPane().add(graphComponent);
+
+        return graphComponent;
     }
 
     public static void main(String[] args)
     {
-        Test frame = new Test();
+        Set<Vertex> graph = IntervalFactory.createGraph(4);
+        Set<Vertex> complement = IntervalFactory.createComplement(graph);
+        Test frame = new Test(graph);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(400, 320);
         frame.setVisible(true);
+
+
+        Test complementFrame = new Test(complement);
+        complementFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        complementFrame.setSize(400, 320);
+        complementFrame.setVisible(true);
+
+
     }
 
 }

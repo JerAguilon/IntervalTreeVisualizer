@@ -10,6 +10,8 @@ public class Vertex implements Comparable<Vertex> {
 
     private Set<Vertex> neighbors;
 
+    private boolean isOriented;
+
     public Vertex(int label) {
         this.label = label;
         neighbors = new HashSet<>();
@@ -18,6 +20,7 @@ public class Vertex implements Comparable<Vertex> {
     public Set<Vertex> getNeighbors() {
         return neighbors;
     }
+
 
     public int getLabel() {
         return this.label;
