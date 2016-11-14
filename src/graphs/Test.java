@@ -3,14 +3,14 @@ package graphs;
 import javax.swing.JFrame;
 
 import com.mxgraph.model.mxCell;
+import com.mxgraph.model.mxGraphModel;
 import com.mxgraph.swing.mxGraphComponent;
+import com.mxgraph.util.mxConstants;
+import com.mxgraph.util.mxUtils;
 import com.mxgraph.view.mxGraph;
 import vertex.Vertex;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class Test extends JFrame
 {
@@ -33,17 +33,23 @@ public class Test extends JFrame
         int sideLength = 20;
         int x = 20;
         int y = 20;
-
         graph.getModel().beginUpdate();
         try
         {
             Set<Object> vertices = new HashSet<>();
-
+            int tracker = 0;
             for (Vertex v : intervalGraph) {
                 Object newVertex = graph.insertVertex(parent, Integer.toString(v.getLabel()), v.getLabel(), x, y, sideLength, sideLength);
                 vertices.add(newVertex);
-                x += 35;
+                x += 100;
+
+                if (tracker == 1) {
+                    y += 100;
+                }
+                tracker++;
             }
+
+            Set<Set<Integer>> completedPairs = new HashSet<>();
 
             for (Vertex v : intervalGraph) {
                 Set<Vertex> neighbors = v.getNeighbors();
@@ -51,6 +57,14 @@ public class Test extends JFrame
                 int v_value = v.getLabel();
                 for (Vertex u : neighbors) {
                     int u_value = u.getLabel();
+
+                    Set<Integer> completedPairSet = new HashSet<>();
+                    completedPairSet.add(u_value);
+                    completedPairSet.add(v_value);
+
+                    if (completedPairs.contains(completedPairSet)) {
+                        continue;
+                    }
 
                     List<Object> pairs = new ArrayList<>(2);
                     for (Object o : vertices) {
@@ -62,11 +76,9 @@ public class Test extends JFrame
                             pairs.add(castedO);
                         }
 
-                        System.out.println(pairs);
-
-                        graph.insertEdge(parent, null, "edge" , pairs.get(0), pairs.get(1));
-
                     }
+                    completedPairs.add(completedPairSet);
+                    graph.insertEdge(parent, null, "edge" , pairs.get(0), pairs.get(1));
                 }
             }
 
@@ -92,6 +104,11 @@ public class Test extends JFrame
         }
 
         mxGraphComponent graphComponent = new mxGraphComponent(graph);
+        mxGraphModel graphModel  = (mxGraphModel)graphComponent.getGraph().getModel();
+        Collection<Object> cells =  graphModel.getCells().values();
+        mxUtils.setCellStyles(graphComponent.getGraph().getModel(),
+                cells.toArray(), mxConstants.STYLE_ENDARROW, mxConstants.NONE);
+        graphComponent.setConnectable(false);
         getContentPane().add(graphComponent);
     }
 
