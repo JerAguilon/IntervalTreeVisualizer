@@ -8,15 +8,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/graphs/Edge.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/TreeVisualizer/graphs/IntervalFactory.class" afterPath="$PROJECT_DIR$/out/production/TreeVisualizer/graphs/IntervalFactory.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/TreeVisualizer/graphs/Test.class" afterPath="$PROJECT_DIR$/out/production/TreeVisualizer/graphs/Test.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/TreeVisualizer/vertex/Vertex.class" afterPath="$PROJECT_DIR$/out/production/TreeVisualizer/vertex/Vertex.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/com_github_monkeysintown_jgraphx_3_3_1_1.xml" afterPath="$PROJECT_DIR$/.idea/libraries/com_github_monkeysintown_jgraphx_3_3_1_1.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/graphs/IntervalFactory.java" afterPath="$PROJECT_DIR$/src/graphs/IntervalFactory.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/graphs/Test.java" afterPath="$PROJECT_DIR$/src/graphs/Test.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/vertex/Vertex.java" afterPath="$PROJECT_DIR$/src/vertex/Vertex.java" />
     </list>
     <ignored path="JavaFxApplication.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -108,17 +101,30 @@
       <file leaf-file-name="Vertex.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/vertex/Vertex.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="5">
+            <state relative-caret-position="360">
               <caret line="22" column="0" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
-              <folding />
+              <folding>
+                <element signature="e#365#366#0" expanded="false" />
+                <element signature="e#397#398#0" expanded="false" />
+                <element signature="e#427#428#0" expanded="false" />
+                <element signature="e#460#461#0" expanded="false" />
+                <element signature="e#504#505#0" expanded="false" />
+                <element signature="e#541#542#0" expanded="false" />
+                <element signature="e#570#571#0" expanded="false" />
+                <element signature="e#598#599#0" expanded="false" />
+                <element signature="e#641#642#0" expanded="false" />
+                <element signature="e#700#701#0" expanded="false" />
+                <element signature="e#1070#1071#0" expanded="false" />
+                <element signature="e#1118#1119#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="IntervalFactory.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="IntervalFactory.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/graphs/IntervalFactory.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-810">
+            <state relative-caret-position="2502">
               <caret line="143" column="34" selection-start-line="143" selection-start-column="34" selection-end-line="143" selection-end-column="34" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -127,11 +133,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Test.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Test.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/graphs/Test.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2556">
-              <caret line="142" column="0" selection-start-line="142" selection-start-column="0" selection-end-line="142" selection-end-column="0" />
+            <state relative-caret-position="330">
+              <caret line="60" column="12" selection-start-line="60" selection-start-column="12" selection-end-line="60" selection-end-column="12" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -141,14 +147,14 @@
       </file>
       <file leaf-file-name="sample.fxml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/sample/sample.fxml">
-          <provider editor-type-id="JavaFX-Scene-Builder">
-            <state />
-          </provider>
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="126">
               <caret line="7" column="11" selection-start-line="7" selection-start-column="11" selection-end-line="7" selection-end-column="11" />
               <folding />
             </state>
+          </provider>
+          <provider editor-type-id="JavaFX-Scene-Builder">
+            <state />
           </provider>
         </entry>
       </file>
@@ -177,10 +183,10 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/graphs/Test.java" />
         <option value="$PROJECT_DIR$/src/vertex/Vertex.java" />
         <option value="$PROJECT_DIR$/src/graphs/Edge.java" />
         <option value="$PROJECT_DIR$/src/graphs/IntervalFactory.java" />
+        <option value="$PROJECT_DIR$/src/graphs/Test.java" />
       </list>
     </option>
   </component>
@@ -199,9 +205,9 @@
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
   <component name="ProjectFrameBounds">
-    <option name="y" value="27" />
+    <option name="y" value="24" />
     <option name="width" value="1920" />
-    <option name="height" value="1053" />
+    <option name="height" value="1056" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <OptionsSetting value="true" id="Add" />
@@ -780,25 +786,26 @@
       <workItem from="1479096076512" duration="3868000" />
       <workItem from="1479101389228" duration="3541000" />
       <workItem from="1479104942883" duration="2583000" />
+      <workItem from="1479139346584" duration="47000" />
+      <workItem from="1479184867585" duration="1193000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="18601000" />
+    <option name="totallyTimeSpent" value="19841000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="27" width="1920" height="1053" extended-state="6" />
+    <frame x="0" y="24" width="1920" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32834226" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.33475935" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3343527" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -816,6 +823,7 @@
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Profiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32834226" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3296875" sideWeight="0.5" order="5" side_tool="true" content_ui="tabs" />
       <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -919,7 +927,20 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="306">
           <caret line="18" column="25" selection-start-line="18" selection-start-column="25" selection-end-line="18" selection-end-column="25" />
-          <folding />
+          <folding>
+            <element signature="e#365#366#0" expanded="false" />
+            <element signature="e#397#398#0" expanded="false" />
+            <element signature="e#427#428#0" expanded="false" />
+            <element signature="e#460#461#0" expanded="false" />
+            <element signature="e#504#505#0" expanded="false" />
+            <element signature="e#541#542#0" expanded="false" />
+            <element signature="e#570#571#0" expanded="false" />
+            <element signature="e#598#599#0" expanded="false" />
+            <element signature="e#641#642#0" expanded="false" />
+            <element signature="e#700#701#0" expanded="false" />
+            <element signature="e#1070#1071#0" expanded="false" />
+            <element signature="e#1118#1119#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -934,14 +955,14 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/sample/sample.fxml">
-      <provider editor-type-id="JavaFX-Scene-Builder">
-        <state />
-      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="126">
           <caret line="7" column="11" selection-start-line="7" selection-start-column="11" selection-end-line="7" selection-end-column="11" />
           <folding />
         </state>
+      </provider>
+      <provider editor-type-id="JavaFX-Scene-Builder">
+        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/sample/Main.java">
@@ -978,7 +999,20 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="306">
           <caret line="18" column="25" selection-start-line="18" selection-start-column="25" selection-end-line="18" selection-end-column="25" />
-          <folding />
+          <folding>
+            <element signature="e#365#366#0" expanded="false" />
+            <element signature="e#397#398#0" expanded="false" />
+            <element signature="e#427#428#0" expanded="false" />
+            <element signature="e#460#461#0" expanded="false" />
+            <element signature="e#504#505#0" expanded="false" />
+            <element signature="e#541#542#0" expanded="false" />
+            <element signature="e#570#571#0" expanded="false" />
+            <element signature="e#598#599#0" expanded="false" />
+            <element signature="e#641#642#0" expanded="false" />
+            <element signature="e#700#701#0" expanded="false" />
+            <element signature="e#1070#1071#0" expanded="false" />
+            <element signature="e#1118#1119#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -993,14 +1027,14 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/sample/sample.fxml">
-      <provider editor-type-id="JavaFX-Scene-Builder">
-        <state />
-      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="126">
           <caret line="7" column="11" selection-start-line="7" selection-start-column="11" selection-end-line="7" selection-end-column="11" />
           <folding />
         </state>
+      </provider>
+      <provider editor-type-id="JavaFX-Scene-Builder">
+        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/sample/Main.java">
@@ -1037,7 +1071,20 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="306">
           <caret line="18" column="25" selection-start-line="18" selection-start-column="25" selection-end-line="18" selection-end-column="25" />
-          <folding />
+          <folding>
+            <element signature="e#365#366#0" expanded="false" />
+            <element signature="e#397#398#0" expanded="false" />
+            <element signature="e#427#428#0" expanded="false" />
+            <element signature="e#460#461#0" expanded="false" />
+            <element signature="e#504#505#0" expanded="false" />
+            <element signature="e#541#542#0" expanded="false" />
+            <element signature="e#570#571#0" expanded="false" />
+            <element signature="e#598#599#0" expanded="false" />
+            <element signature="e#641#642#0" expanded="false" />
+            <element signature="e#700#701#0" expanded="false" />
+            <element signature="e#1070#1071#0" expanded="false" />
+            <element signature="e#1118#1119#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1052,14 +1099,14 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/sample/sample.fxml">
-      <provider editor-type-id="JavaFX-Scene-Builder">
-        <state />
-      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="126">
           <caret line="7" column="11" selection-start-line="7" selection-start-column="11" selection-end-line="7" selection-end-column="11" />
           <folding />
         </state>
+      </provider>
+      <provider editor-type-id="JavaFX-Scene-Builder">
+        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/sample/Main.java">
@@ -1096,7 +1143,20 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="306">
           <caret line="18" column="25" selection-start-line="18" selection-start-column="25" selection-end-line="18" selection-end-column="25" />
-          <folding />
+          <folding>
+            <element signature="e#365#366#0" expanded="false" />
+            <element signature="e#397#398#0" expanded="false" />
+            <element signature="e#427#428#0" expanded="false" />
+            <element signature="e#460#461#0" expanded="false" />
+            <element signature="e#504#505#0" expanded="false" />
+            <element signature="e#541#542#0" expanded="false" />
+            <element signature="e#570#571#0" expanded="false" />
+            <element signature="e#598#599#0" expanded="false" />
+            <element signature="e#641#642#0" expanded="false" />
+            <element signature="e#700#701#0" expanded="false" />
+            <element signature="e#1070#1071#0" expanded="false" />
+            <element signature="e#1118#1119#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1134,7 +1194,20 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="324">
           <caret line="18" column="25" selection-start-line="18" selection-start-column="25" selection-end-line="18" selection-end-column="25" />
-          <folding />
+          <folding>
+            <element signature="e#365#366#0" expanded="false" />
+            <element signature="e#397#398#0" expanded="false" />
+            <element signature="e#427#428#0" expanded="false" />
+            <element signature="e#460#461#0" expanded="false" />
+            <element signature="e#504#505#0" expanded="false" />
+            <element signature="e#541#542#0" expanded="false" />
+            <element signature="e#570#571#0" expanded="false" />
+            <element signature="e#598#599#0" expanded="false" />
+            <element signature="e#641#642#0" expanded="false" />
+            <element signature="e#700#701#0" expanded="false" />
+            <element signature="e#1070#1071#0" expanded="false" />
+            <element signature="e#1118#1119#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1149,14 +1222,14 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/sample/sample.fxml">
-      <provider editor-type-id="JavaFX-Scene-Builder">
-        <state />
-      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="126">
           <caret line="7" column="11" selection-start-line="7" selection-start-column="11" selection-end-line="7" selection-end-column="11" />
           <folding />
         </state>
+      </provider>
+      <provider editor-type-id="JavaFX-Scene-Builder">
+        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/sample/Main.java">
@@ -1193,7 +1266,20 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="306">
           <caret line="18" column="25" selection-start-line="18" selection-start-column="25" selection-end-line="18" selection-end-column="25" />
-          <folding />
+          <folding>
+            <element signature="e#365#366#0" expanded="false" />
+            <element signature="e#397#398#0" expanded="false" />
+            <element signature="e#427#428#0" expanded="false" />
+            <element signature="e#460#461#0" expanded="false" />
+            <element signature="e#504#505#0" expanded="false" />
+            <element signature="e#541#542#0" expanded="false" />
+            <element signature="e#570#571#0" expanded="false" />
+            <element signature="e#598#599#0" expanded="false" />
+            <element signature="e#641#642#0" expanded="false" />
+            <element signature="e#700#701#0" expanded="false" />
+            <element signature="e#1070#1071#0" expanded="false" />
+            <element signature="e#1118#1119#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1208,14 +1294,14 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/sample/sample.fxml">
-      <provider editor-type-id="JavaFX-Scene-Builder">
-        <state />
-      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="126">
           <caret line="7" column="11" selection-start-line="7" selection-start-column="11" selection-end-line="7" selection-end-column="11" />
           <folding />
         </state>
+      </provider>
+      <provider editor-type-id="JavaFX-Scene-Builder">
+        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/sample/Main.java">
@@ -1259,14 +1345,14 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/sample/sample.fxml">
-      <provider editor-type-id="JavaFX-Scene-Builder">
-        <state />
-      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="126">
           <caret line="7" column="11" selection-start-line="7" selection-start-column="11" selection-end-line="7" selection-end-column="11" />
           <folding />
         </state>
+      </provider>
+      <provider editor-type-id="JavaFX-Scene-Builder">
+        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/sample/Main.java">
@@ -1310,14 +1396,14 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/sample/sample.fxml">
-      <provider editor-type-id="JavaFX-Scene-Builder">
-        <state />
-      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="126">
           <caret line="7" column="11" selection-start-line="7" selection-start-column="11" selection-end-line="7" selection-end-column="11" />
           <folding />
         </state>
+      </provider>
+      <provider editor-type-id="JavaFX-Scene-Builder">
+        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/sample/Main.java">
@@ -1341,35 +1427,25 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/sample/sample.fxml">
-      <provider editor-type-id="JavaFX-Scene-Builder">
-        <state />
-      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="126">
           <caret line="7" column="11" selection-start-line="7" selection-start-column="11" selection-end-line="7" selection-end-column="11" />
           <folding />
         </state>
+      </provider>
+      <provider editor-type-id="JavaFX-Scene-Builder">
+        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/sample/sample.fxml">
-      <provider editor-type-id="JavaFX-Scene-Builder">
-        <state />
-      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="126">
           <caret line="7" column="11" selection-start-line="7" selection-start-column="11" selection-end-line="7" selection-end-column="11" />
           <folding />
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/graphs/Test.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2556">
-          <caret line="142" column="0" selection-start-line="142" selection-start-column="0" selection-end-line="142" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
+      <provider editor-type-id="JavaFX-Scene-Builder">
+        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/sample/Main.java">
@@ -1388,15 +1464,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="293">
           <caret line="47" column="41" selection-start-line="47" selection-start-column="41" selection-end-line="47" selection-end-column="41" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/vertex/Vertex.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5">
-          <caret line="22" column="0" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1410,8 +1477,39 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/graphs/IntervalFactory.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-810">
+        <state relative-caret-position="2502">
           <caret line="143" column="34" selection-start-line="143" selection-start-column="34" selection-end-line="143" selection-end-column="34" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/vertex/Vertex.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="22" column="0" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
+          <folding>
+            <element signature="e#365#366#0" expanded="false" />
+            <element signature="e#397#398#0" expanded="false" />
+            <element signature="e#427#428#0" expanded="false" />
+            <element signature="e#460#461#0" expanded="false" />
+            <element signature="e#504#505#0" expanded="false" />
+            <element signature="e#541#542#0" expanded="false" />
+            <element signature="e#570#571#0" expanded="false" />
+            <element signature="e#598#599#0" expanded="false" />
+            <element signature="e#641#642#0" expanded="false" />
+            <element signature="e#700#701#0" expanded="false" />
+            <element signature="e#1070#1071#0" expanded="false" />
+            <element signature="e#1118#1119#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/graphs/Test.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="60" column="12" selection-start-line="60" selection-start-column="12" selection-end-line="60" selection-end-column="12" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

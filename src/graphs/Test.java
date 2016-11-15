@@ -30,6 +30,61 @@ public class Test extends JFrame
 
     }
 
+    public mxGraphComponent createDirectedGraph(Set<Vertex> intervalGraph) {
+        Collection<Edge> orientation = IntervalFactory.createOrientation(intervalGraph);
+
+
+        mxGraph graph = new mxGraph();
+
+        graph.setAllowDanglingEdges(false);
+        Object parent = graph.getDefaultParent();
+
+        int sideLength = 20;
+        int x = 20;
+        int y = 20;
+        graph.getModel().beginUpdate();
+        try
+        {
+            Set<Object> vertices = new HashSet<>();
+            int tracker = 0;
+            for (Vertex v : intervalGraph) {
+                Object newVertex = graph.insertVertex(parent, Integer.toString(v.getLabel()), v.getLabel(), x, y, sideLength, sideLength);
+                vertices.add(newVertex);
+                x += 100;
+
+                if (tracker == 1) {
+                    y += 100;
+                }
+                tracker++;
+            }
+
+
+        }
+        finally
+        {
+            graph.getModel().endUpdate();
+        }
+
+        for (Object cell : graph.getSelectionCells()) {
+            mxCell castedCell = (mxCell) cell;
+            System.out.println(castedCell);
+            System.out.println("bar");
+            if (castedCell.isVertex()) {
+                System.out.println("foo");
+                System.out.println(castedCell.getValue());
+            }
+        }
+
+        mxGraphComponent graphComponent = new mxGraphComponent(graph);
+        mxGraphModel graphModel  = (mxGraphModel)graphComponent.getGraph().getModel();
+        Collection<Object> cells =  graphModel.getCells().values();
+        mxUtils.setCellStyles(graphComponent.getGraph().getModel(),
+                cells.toArray(), mxConstants.STYLE_ENDARROW, mxConstants.NONE);
+        graphComponent.setConnectable(false);
+
+        return graphComponent;
+    }
+
     public mxGraphComponent createGraph(Set<Vertex> intervalGraph) {
         mxGraph graph = new mxGraph();
 
