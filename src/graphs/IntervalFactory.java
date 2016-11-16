@@ -154,7 +154,7 @@ public class IntervalFactory {
         return output;
     }
 
-    public static Collection<Edge> createOrientation(Set<Vertex> vertices) {
+    public static Set<Edge> createOrientation(Set<Vertex> vertices) {
         Map<Edge, Edge> edgeSet = new HashMap<>();
 
         for (Vertex v : vertices) {
@@ -257,7 +257,120 @@ public class IntervalFactory {
                 orientedEdges++;
             }
         }
-        return edgeSet.values();
+        Set<Edge> output = new HashSet<>(edgeSet.values());
 
+        return output;
+
+    }
+
+    public static Map<Integer, Set<Integer>> createLevelList(Set<Vertex> vertices, Set<Edge> edges) {
+        List<Vertex> topoList = topologicalSort(vertices, edges);
+        Map<Edge, Edge> edgeSet = new LinkedHashMap<>();
+
+        for (Edge edge : edges) {
+            edgeSet.put(edge, edge);
+        }
+
+
+
+        Map<Integer, Integer> levelList = new HashMap<>();
+
+        for (int i = 1; i <= topoList.size(); i++) {
+            levelList.put(i, 0);
+        }
+        Set<Vertex> visited = new HashSet<>();
+        for (Vertex v : topoList) {
+            visited.add(v);
+            for (Vertex neighbor : v.getNeighbors()) {
+                Edge key = new Edge(v, neighbor);
+
+                Edge value = edgeSet.get(key);
+
+                Vertex orientation = value.getOrient();
+
+                if (visited.contains(orientation)) continue;
+                if (levelList.containsKey(neighbor.getLabel())) {
+                    levelList.put(neighbor.getLabel(), levelList.get(neighbor.getLabel()) + 1);
+                } else {
+                    levelList.put(neighbor.getLabel(), 0);
+                }
+            }
+        }
+
+        Map<Integer, Set<Integer>> mappedList = new HashMap<>();
+
+        for (int i : levelList.keySet()) {
+            int level = levelList.get(i);
+
+            if ( mappedList.containsKey(level)) {
+                mappedList.get(level).add(i);
+            } else {
+                Set<Integer> newSet = new HashSet<>();
+
+                newSet.add(i);
+                mappedList.put(level, newSet);
+            }
+
+        }
+
+        return mappedList;
+    }
+
+    private static List<Vertex> topologicalSort(Set<Vertex> intervalGraph, Set<Edge> orientation) {
+
+        Map<Edge, Edge> edgeSet = new HashMap<>();
+
+        for (Edge edge : orientation) {
+            edgeSet.put(edge, edge);
+        }
+
+        Map<Vertex, Vertex> vertexSet = new HashMap<>();
+
+        for (Vertex v : intervalGraph) {
+            vertexSet.put(v, v);
+        }
+
+
+        Set<Vertex> visitedVertices = new HashSet<>();
+
+        Stack<Vertex> stack = new Stack<>();
+
+        List<Vertex> output = new ArrayList<>();
+
+        for (Vertex v : intervalGraph) {
+            recurse(v, edgeSet, vertexSet, visitedVertices, stack);
+        }
+
+        while(!stack.isEmpty()) {
+            output.add(stack.pop());
+        }
+
+        System.out.println("Topological sort: " + output);
+        return output;
+    }
+
+    private static void recurse(Vertex v, Map<Edge, Edge> edgeSet, Map<Vertex, Vertex> vertexSet, Set<Vertex> visitedSet, Stack<Vertex> stack) {
+        if (visitedSet.contains(v)) return;
+
+        visitedSet.add(v);
+
+        v = vertexSet.get(v);
+
+        Set<Vertex> neighbors = v.getNeighbors();
+        for (Vertex neighbor : neighbors) {
+            Edge edgeKey = new Edge(v, neighbor);
+
+            if (!edgeSet.containsKey(edgeKey)) continue;
+
+            Edge edgeValue = edgeSet.get(edgeKey);
+
+            if (edgeValue.getOrient().equals(v)) continue;
+
+            //we can now recurse on the neighbor
+            recurse(neighbor, edgeSet, vertexSet, visitedSet, stack);
+
+        }
+
+        stack.push(v);
     }
 }
