@@ -251,95 +251,6 @@ public class IntervalFactory {
 
                 orientedEdges++;
             }
-
-            //1. arbitrarily orient an edge
-
-
-            /*for (Edge edge : edgeSet.values()) {
-                Vertex u = edge.u;
-                Vertex v = edge.v;
-
-                Set<Vertex> uNeighbors = u.getNeighbors();
-                Set<Vertex> vNeighbors = v.getNeighbors();
-
-                boolean uOriented = false;
-                boolean vOriented = false;
-                boolean arbitrary = true;
-
-                for (Vertex uNeighbor : uNeighbors) {
-                    if (uNeighbor.equals(v)) {
-                        continue;
-                    }
-
-                    boolean shouldSkip = false;
-                    for (Vertex vertexIn : vertices) {
-                        if (vertexIn.equals(uNeighbor) && vertexIn.getNeighbors().contains(v)) {
-                            shouldSkip = true;
-                            break;
-                        }
-                    }
-
-                    if (shouldSkip) continue;
-
-                    Edge neighbor = new Edge(u, uNeighbor);
-
-                    if (edgeSet.get(neighbor).getOrient() != null) {
-                        Vertex orientedVertex = edgeSet.get(neighbor).getOrient();
-
-                        if (orientedVertex.equals(u)) {
-                            edge.orient(u);
-                            arbitrary = false;
-                            uOriented = true;
-                        } else {
-                            edge.orient(v);
-                            arbitrary = false;
-                            vOriented = true;
-                        }
-                    }
-                }
-
-                for (Vertex vNeighbor : vNeighbors) {
-                    if (vNeighbor.equals(v)) {
-                        continue;
-                    }
-
-                    boolean shouldSkip = false;
-                    for (Vertex vertexIn : vertices) {
-                        if (vertexIn.equals(vNeighbor) && vertexIn.getNeighbors().contains(u)) {
-                            shouldSkip = true;
-                            break;
-                        }
-                    }
-
-                    if(shouldSkip) continue;
-
-                    Edge neighbor = new Edge(v, vNeighbor);
-
-                    if (edgeSet.get(neighbor).getOrient() != null) {
-                        Vertex orientedVertex = edgeSet.get(neighbor).getOrient();
-
-                        if (orientedVertex.equals(v)) {
-                            edge.orient(v);
-                            arbitrary = false;
-                            vOriented = true;
-                        } else {
-                            edge.orient(u);
-                            arbitrary = false;
-                            uOriented = true;
-                        }
-                    }
-                }
-
-                if (uOriented && vOriented) {
-                    throw new RuntimeException(u.getLabel() + " " + v.getLabel());
-                }
-
-
-                if (arbitrary) {
-                    edge.orient(u);
-                }
-                orientedEdges++;
-            }*/
         }
         System.out.println(orientedEdges == edgeSet.size());
 
@@ -352,16 +263,59 @@ public class IntervalFactory {
     public static Map<Integer, Set<Integer>> createLevelList(Set<Vertex> vertices, Set<Edge> edges) {
         List<Vertex> topoList = topologicalSort(vertices, edges);
         Map<Edge, Edge> edgeSet = new LinkedHashMap<>();
+        Map<Vertex, Vertex> vertexSet = new HashMap<>();
 
         for (Edge edge : edges) {
             edgeSet.put(edge, edge);
         }
+        for (Vertex v : vertices) {
+            vertexSet.put(v, v);
+        }
+
+        Map<Vertex, Integer> levelMap = new HashMap<>();
 
 
 
-        Map<Integer, Integer> levelList = new HashMap<>();
 
-        for (int i = 1; i <= topoList.size(); i++) {
+        for (int i = 0; i < vertices.size(); i++) {
+            Vertex currentVertex = topoList.get(i);
+            int level = -1;
+            for (int j = 0; j < i; j++) {
+                Vertex previousVertex = vertexSet.get(topoList.get(j));
+
+                if (previousVertex.getNeighbors().contains(currentVertex)) {
+                    Edge e = new Edge (currentVertex, previousVertex);
+                    e = edgeSet.get(e);
+
+                    if (e.getOrient().equals(currentVertex)) {
+                        level = Math.max(level, levelMap.get(previousVertex));
+                    }
+                }
+            }
+
+            level++;
+
+            levelMap.put(currentVertex, level);
+        }
+
+
+
+        Map<Integer, Set<Integer>> levelList = new HashMap<>();
+
+        for (Vertex v : levelMap.keySet()) {
+            int level = levelMap.get(v);
+
+            if (levelList.containsKey(level)) {
+                levelList.get(level).add(v.getLabel());
+            } else {
+                Set<Integer> set = new HashSet<>();
+
+                set.add(v.getLabel());
+                levelList.put(level, set);
+            }
+        }
+
+        /*for (int i = 1; i <= topoList.size(); i++) {
             levelList.put(i, 0);
         }
         Set<Vertex> visited = new HashSet<>();
@@ -397,9 +351,9 @@ public class IntervalFactory {
                 mappedList.put(level, newSet);
             }
 
-        }
+        }*/
 
-        return mappedList;
+        return levelList;
     }
 
     private static List<Vertex> topologicalSort(Set<Vertex> intervalGraph, Set<Edge> orientation) {

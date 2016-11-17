@@ -29,7 +29,7 @@ public class GraphDisplayerController {
 
     @FXML
     public void initialize() {
-        Set<Vertex> graph = IntervalFactory.createGraph(25);
+        Set<Vertex> graph = IntervalFactory.createGraph(150);
         Set<Vertex> complement = IntervalFactory.createComplement(graph);
         createUndirectedGraph(graphDisplay, graph);
         createUndirectedGraph(complementDisplay, complement);
