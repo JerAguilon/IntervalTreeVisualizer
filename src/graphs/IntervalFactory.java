@@ -1,5 +1,6 @@
 package graphs;
 
+import vertex.PosetVertex;
 import vertex.Vertex;
 
 import java.util.*;
@@ -18,76 +19,70 @@ public class IntervalFactory {
         }
 
         Collections.shuffle(list);
-        /*Map<Integer, Integer> islandIndices = new HashMap<>();
-
-        boolean newIsland = true;
-        int start = -1;
-        Set<Integer> toComplete = new HashSet<>();
-        for (int i = 0; i < list.size(); i++) {
-            if (newIsland) {
-                start = i;
-                newIsland = false;
-                toComplete.add(list.get(i));
-            } else {
-                int val = list.get(i);
-                if (toComplete.contains(val)) {
-                    toComplete.remove(val);
-                } else {
-                    toComplete.add(val);
-                }
-
-                if (toComplete.size() == 0) {
-                    islandIndices.put(start, i);
-                    newIsland = true;
-                }
-            }
-        }
-
-        System.out.println("Number of islands: " +  islandIndices.size());
         System.out.println(list);
-        if (size > 1) {
-            Set<Integer> skipKeys = new HashSet<>();
 
-            for (int startInd : islandIndices.keySet()) {
-                int endInd = islandIndices.get(startInd);
-
-                if (endInd != list.size() - 1 && !skipKeys.contains(startInd)) {
-                    Collections.swap(list, endInd, endInd + 1);
-
-                    *//*int newEnd = islandIndices.get(endInd + 1);
-
-                    islandIndices.remove(endInd + 1);
-                    islandIndices.put(startInd, newEnd);*//*
-
-                    skipKeys.add(endInd + 1);
-                } else if (startInd != 0 && !skipKeys.contains(startInd)) {
-                    Collections.swap(list, startInd, startInd - 1);
-                }
-
-            }
-        }
-
-        System.out.println("FIXED Number of islands: " +  islandIndices.size());
-        System.out.println(list);*/
         return list;
     }
 
     public static void main(String[] args) {
-        int[] input = {1,3,4,3,4,2,2,1};
 
-        ArrayList<Integer> vertexList = new ArrayList<>();
+        Set<Vertex> graph = createGraph(5);
+        System.out.println(graph);
+        Set<Edge> edgeList = createOrientation(graph);
+        Map<Edge, Edge> edgeMap = new HashMap<>();
 
-        for (int i : input) {
-            vertexList.add(i);
+        for (Edge e : edgeList) {
+            edgeMap.put(e, e);
         }
-
-        Set<Vertex> graph = createGraph(vertexList);
-
-        Collection<Edge> edgeList = createOrientation(graph);
-
         System.out.println(edgeList);
+        Set<PosetVertex> posetList = vertexToPoset(graph, edgeMap);
 
-        //System.out.println(createOrientation(createGraph(4)));
+        System.out.println(posetList);
+
+    }
+
+    private static void findTwoTwo(Set<PosetVertex> vertexSet) {
+        List<Vertex> vertexList = new ArrayList<>(vertexSet);
+
+        for (int i = 0 ; i < vertexList.size(); i++) {
+            for (int j = 1; j < vertexList.size(); j++) {
+
+            }
+        }
+    }
+
+    private static Set<PosetVertex> vertexToPoset(Set<Vertex> vertexList, Map<Edge, Edge> edgeList) {
+        Set<PosetVertex> output = new HashSet<>();
+        for (Vertex v : vertexList) {
+            Set<Vertex> downSet = new HashSet<>();
+            for (Vertex u : v.getNeighbors()) {
+                Edge edge = new Edge(u, v);
+                edge = edgeList.get(edge);
+
+                if (edge.getOrient().equals(v)) {
+                    downSet.add(u);
+                }
+            }
+
+            v.getNeighbors().removeAll(downSet);
+
+            Set<Vertex> upSet = v.getNeighbors();
+
+            Set<PosetVertex> posetUpSet = new HashSet<>();
+
+            Set<PosetVertex> posetDownSet = new HashSet<>();
+
+            for (Vertex up : upSet) {
+                posetUpSet.add(new PosetVertex(up.getLabel()));
+            }
+
+            for (Vertex down : downSet) {
+                posetDownSet.add(new PosetVertex(down.getLabel()));
+            }
+
+            output.add(new PosetVertex(v.getLabel(), posetUpSet, posetDownSet));
+        }
+        return output;
     }
 
 
@@ -145,8 +140,6 @@ public class IntervalFactory {
             output.add(v);
         }
 
-        Vertex firstVertex = (Vertex) output.toArray()[0];
-
 
 
         System.out.println("Graph created\n\t" + output);
@@ -156,6 +149,7 @@ public class IntervalFactory {
 
     public static Set<Edge> createOrientation(Set<Vertex> vertices) {
         Map<Edge, Edge> edgeSet = new HashMap<>();
+        Map<Vertex, Vertex> vertexSet = new HashMap<>();
 
         for (Vertex v : vertices) {
             for (Vertex u : v.getNeighbors()) {
@@ -167,11 +161,101 @@ public class IntervalFactory {
             }
         }
 
+        for (Vertex v : vertices) {
+            vertexSet.put(v, v);
+        }
+
         int orientedEdges = 0;
+        Queue<Edge> edgeQueue = new LinkedList<>();
 
         while (orientedEdges != edgeSet.size()) {
-            //1. arbitrarily orient an edge
+            Edge foundEdge = null;
+
             for (Edge edge : edgeSet.values()) {
+                if (edgeSet.get(edge).getOrient() == null) {
+                    foundEdge = edge;
+                    break;
+                }
+            }
+
+            if (foundEdge == null) break;
+
+            edgeQueue.add(foundEdge);
+            while (!edgeQueue.isEmpty()) {
+                Edge currentEdge = edgeQueue.remove();
+
+                currentEdge = edgeSet.get(currentEdge);
+
+                Set<Vertex> uNeighbors = vertexSet.get(currentEdge.u).getNeighbors();
+                Set<Vertex> vNeighbors = vertexSet.get(currentEdge.v).getNeighbors();
+
+                boolean pointU = false;
+                boolean pointV = false;
+
+                for (Vertex uNeighbor : uNeighbors) {
+                    if (uNeighbor.equals(currentEdge.v)) continue;
+
+                    Edge neighborEdgeKey = new Edge(currentEdge.u, uNeighbor);
+                    Edge neighborEdgeValue = edgeSet.get(neighborEdgeKey);
+
+                    Set<Vertex> extraneousNeighbors = vertexSet.get(uNeighbor).getNeighbors();
+
+                    if (extraneousNeighbors.contains(currentEdge.v)) continue;
+
+                    if (neighborEdgeValue.getOrient() != null) {
+                        if (neighborEdgeValue.getOrient().equals(currentEdge.u)) {
+                            pointU = true;
+                        } else {
+                            pointV = true;
+                        }
+                    } else  {
+                        edgeQueue.add(neighborEdgeValue);
+                    }
+                }
+
+                for (Vertex vNeighbor : vNeighbors) {
+                    if (vNeighbor.equals(currentEdge.u)) continue;
+
+                    Edge neighborEdgekey = new Edge(currentEdge.v, vNeighbor);
+                    Edge neighborEdgeValue = edgeSet.get(neighborEdgekey);
+
+                    Set<Vertex> extraneousNeighbors = vertexSet.get(vNeighbor).getNeighbors();
+
+                    if (extraneousNeighbors.contains(currentEdge.u)) continue;
+
+                    if (neighborEdgeValue.getOrient() != null) {
+                        if (neighborEdgeValue.getOrient().equals(currentEdge.v)) {
+                            pointV = true;
+                        } else {
+                            pointU = true;
+                        }
+                    } else {
+                        edgeQueue.add(neighborEdgeValue);
+                    }
+                }
+
+                if (pointU) {
+                    currentEdge.orient(currentEdge.u);
+                }
+                if (pointV) {
+                    currentEdge.orient(currentEdge.v);
+                }
+
+                if (!pointU && !pointV) {
+                    currentEdge.orient(currentEdge.u);
+                }
+
+                if (pointU && pointV) {
+                    throw new RuntimeException(currentEdge.u.toString() + " " + currentEdge.v.toString());
+                }
+
+                orientedEdges++;
+            }
+
+            //1. arbitrarily orient an edge
+
+
+            /*for (Edge edge : edgeSet.values()) {
                 Vertex u = edge.u;
                 Vertex v = edge.v;
 
@@ -255,8 +339,10 @@ public class IntervalFactory {
                     edge.orient(u);
                 }
                 orientedEdges++;
-            }
+            }*/
         }
+        System.out.println(orientedEdges == edgeSet.size());
+
         Set<Edge> output = new HashSet<>(edgeSet.values());
 
         return output;

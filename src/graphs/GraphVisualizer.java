@@ -32,8 +32,6 @@ public class GraphVisualizer
     public static mxGraphComponent createPosetRepresentation(Set<Vertex> intervalGraph) {
 
 
-
-
         Set<Edge> orientation = IntervalFactory.createOrientation(intervalGraph);
 
         Map<Integer, Set<Integer>> levels = IntervalFactory.createLevelList(intervalGraph, orientation);
@@ -47,9 +45,7 @@ public class GraphVisualizer
         for (int i : levels.keySet()) {
             if (i > maxLevel) maxLevel = i;
         }
-
         int sideLength = 20;
-        int currentLevel = 0;
         int x = 20;
         int bottomLevel = 50 + 50 * maxLevel;
         graph.getModel().beginUpdate();
@@ -109,17 +105,13 @@ public class GraphVisualizer
         }
 
         mxGraphComponent graphComponent = new mxGraphComponent(graph);
-        mxGraphModel graphModel  = (mxGraphModel)graphComponent.getGraph().getModel();
-        Collection<Object> cells =  graphModel.getCells().values();
-        //mxUtils.setCellStyles(graphComponent.getGraph().getModel(),
-        //        cells.toArray(), mxConstants.STYLE_ENDARROW, mxConstants.NONE);
+
         graphComponent.setConnectable(false);
 
         return graphComponent;
 
 
     }
-
 
 
     public static mxGraphComponent createDirectedGraph(Set<Vertex> intervalGraph) {
@@ -131,22 +123,30 @@ public class GraphVisualizer
         graph.setAllowDanglingEdges(false);
         Object parent = graph.getDefaultParent();
 
+        int centerXY = 165;
+        int width = 150;
+
+        int numberOfVertices = intervalGraph.size();
+
+        double deltaDegree = 360/numberOfVertices;
+
+
         int sideLength = 20;
-        int x = 20;
-        int y = 20;
+        /*int x = 20;
+        int y = 20;*/
         graph.getModel().beginUpdate();
         try
         {
             Set<Object> vertices = new HashSet<>();
             int tracker = 0;
             for (Vertex v : intervalGraph) {
+                int x =  centerXY + (int) (width * Math.cos(Math.toRadians(deltaDegree * tracker)));
+                int y =  centerXY + (int) (width * Math.sin(Math.toRadians(deltaDegree * tracker)));
+
+                System.out.println(String.format("(%d, %d)", x, y));
                 Object newVertex = graph.insertVertex(parent, Integer.toString(v.getLabel()), v.getLabel(), x, y, sideLength, sideLength);
                 vertices.add(newVertex);
-                x += 100;
 
-                if (tracker == 1) {
-                    y += 100;
-                }
                 tracker++;
             }
             for (Edge edge : orientation) {
@@ -175,6 +175,8 @@ public class GraphVisualizer
 
             }
 
+
+
         }
         finally
         {
@@ -192,10 +194,6 @@ public class GraphVisualizer
         }
 
         mxGraphComponent graphComponent = new mxGraphComponent(graph);
-        mxGraphModel graphModel  = (mxGraphModel)graphComponent.getGraph().getModel();
-        Collection<Object> cells =  graphModel.getCells().values();
-        //mxUtils.setCellStyles(graphComponent.getGraph().getModel(),
-        //        cells.toArray(), mxConstants.STYLE_ENDARROW, mxConstants.NONE);
         graphComponent.setConnectable(false);
 
         return graphComponent;
@@ -207,22 +205,32 @@ public class GraphVisualizer
         graph.setAllowDanglingEdges(false);
         Object parent = graph.getDefaultParent();
 
+        int centerXY = 165;
+        int width = 150;
+
+        int numberOfVertices = intervalGraph.size();
+
+        int deltaDegree = 360/numberOfVertices;
+
+
         int sideLength = 20;
-        int x = 20;
-        int y = 20;
+        /*int x = 20;
+        int y = 20;*/
         graph.getModel().beginUpdate();
         try
         {
             Set<Object> vertices = new HashSet<>();
             int tracker = 0;
             for (Vertex v : intervalGraph) {
+
+                int x =  centerXY + (int) (width * Math.cos(Math.toRadians(deltaDegree * tracker)));
+                int y =  centerXY + (int) (width * Math.sin(Math.toRadians(deltaDegree * tracker)));
+
+                System.out.println(String.format("(%d, %d)", x, y));
+
                 Object newVertex = graph.insertVertex(parent, Integer.toString(v.getLabel()), v.getLabel(), x, y, sideLength, sideLength);
                 vertices.add(newVertex);
-                x += 100;
 
-                if (tracker == 1) {
-                    y += 100;
-                }
                 tracker++;
             }
 
