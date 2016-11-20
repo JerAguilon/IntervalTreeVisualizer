@@ -15,7 +15,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("/view/GraphDisplayer.fxml"));
-        primaryStage.setTitle("Welcome!");
+        primaryStage.setTitle("Interval graph teaching tool");
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
 

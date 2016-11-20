@@ -6,8 +6,7 @@ import graphs.GraphVisualizer;
 import graphs.IntervalFactory;
 import javafx.embed.swing.SwingNode;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
+import javafx.scene.control.*;
 import vertex.Vertex;
 
 import javax.swing.*;
@@ -29,6 +28,17 @@ public class GraphDisplayerController {
     @FXML
     SwingNode posetDisplay;
 
+    @FXML
+    TextField elementEntry;
+
+    @FXML
+    RadioButton interval;
+
+    @FXML
+    RadioButton random;
+
+    @FXML
+    RadioButton fiftyFifty;
 
     Set<Vertex> complement;
 
@@ -39,8 +49,41 @@ public class GraphDisplayerController {
         /*Integer[] arr = new Integer[] {3, 5, 1, 7, 3, 10, 5, 7, 2, 4, 4, 9, 8, 1, 9, 6, 10, 2, 6, 8};
 
         List<Integer> list = Arrays.asList(arr);*/
+        ToggleGroup group = new ToggleGroup();
 
-        Set<Vertex> graph = IntervalFactory.createGraph(100);
+        interval.setToggleGroup(group);
+        random.setToggleGroup(group);
+        fiftyFifty.setToggleGroup(group);
+
+        createGraph();
+    }
+
+    @FXML
+    public void createGraph() {
+        int value;
+        try {
+            value = Integer.parseInt(elementEntry.getText());
+        } catch (NumberFormatException e) {
+            Alert empty = new Alert(Alert.AlertType.ERROR);
+            empty.setTitle("Graph creation");
+            empty.setHeaderText("Please enter a valid number in the textfield");
+            return;
+        }
+
+        if (value > 100) {
+            Alert toolarge = new Alert(Alert.AlertType.ERROR);
+            toolarge.setTitle("Graph creation");
+            toolarge.setHeaderText("Graphs of over 100 vertices are not supported");
+            toolarge.show();
+            return;
+        }
+
+        Alert pleaseWait = new Alert(Alert.AlertType.INFORMATION);
+        pleaseWait.setTitle("Graph creation");
+        pleaseWait.setHeaderText("Please wait. Graph being generated");
+        pleaseWait.show();
+
+        Set<Vertex> graph = IntervalFactory.createGraph(Integer.parseInt(elementEntry.getText()));
         complement = IntervalFactory.createComplement(graph);
         createUndirectedGraph(graphDisplay, graph);
         createUndirectedGraph(complementDisplay, complement);
@@ -51,14 +94,7 @@ public class GraphDisplayerController {
             edgeMap.put(e, e);
         }
 
-        if (complement == null || complement.isEmpty()) {
-            return;
-        }
-
-
-
-
-
+        pleaseWait.hide();
     }
 
     @FXML
@@ -116,6 +152,12 @@ public class GraphDisplayerController {
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() != ButtonType.OK){
             return;
+        }
+
+        if (complement == null || complement.isEmpty()) {
+            Alert empty = new Alert(Alert.AlertType.ERROR);
+            empty.setTitle("Find a 2+2");
+            empty.setHeaderText("Create a graph first.");
         }
 
         Alert resultMsg = new Alert(Alert.AlertType.INFORMATION);
