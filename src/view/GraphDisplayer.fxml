@@ -41,6 +41,7 @@
               </rowConstraints>
                <children>
                   <Button mnemonicParsing="false" text="Button" />
+                  <Button fx:id="find22" mnemonicParsing="false" onAction="#find22" text="Find2-2" GridPane.columnIndex="1" />
                </children>
             </GridPane>
          </children>

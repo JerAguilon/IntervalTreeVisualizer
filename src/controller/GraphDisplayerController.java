@@ -26,30 +26,86 @@ public class GraphDisplayerController {
     @FXML
     SwingNode posetDisplay;
 
+
+    Set<Vertex> complement;
+
+    Map<Edge, Edge> edgeMap = new HashMap<>();
+
     @FXML
     public void initialize() {
-        /*Integer[] arr = new Integer[] {8, 7, 8, 2, 1, 6, 5, 9, 2, 3, 1, 10, 7, 4, 4, 5, 10, 9, 3, 6};
+        /*Integer[] arr = new Integer[] {3, 5, 1, 7, 3, 10, 5, 7, 2, 4, 4, 9, 8, 1, 9, 6, 10, 2, 6, 8};
 
         List<Integer> list = Arrays.asList(arr);*/
 
-        Set<Vertex> graph = IntervalFactory.createGraph(25);
-        Set<Vertex> complement = IntervalFactory.createComplement(graph);
+        Set<Vertex> graph = IntervalFactory.createGraph(50);
+        complement = IntervalFactory.createComplement(graph);
         createUndirectedGraph(graphDisplay, graph);
         createUndirectedGraph(complementDisplay, complement);
         createDirectedGraph(directedDisplay, complement);
         createPosetGraph(posetDisplay, complement);
         Set<Edge> edgeSet = IntervalFactory.createOrientation(complement);
-        Map<Edge, Edge> edgeMap = new HashMap<>();
         for (Edge e : edgeSet) {
             edgeMap.put(e, e);
         }
 
-        /*try {
-            IntervalFactory.findTwoTwo(complement,edgeMap);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
 
-        }*/
+
+    }
+
+    @FXML
+    public void find22() {
+        /*Set<Vertex> complement = new HashSet<>();
+        Vertex v1 = new Vertex(1);
+        v1.getNeighbors().add(new Vertex(2));
+        v1.getNeighbors().add(new Vertex(5));
+
+        Vertex v2 = new Vertex(2);
+        v2.getNeighbors().add(new Vertex(1));
+
+        Vertex v3 = new Vertex(3);
+        v3.getNeighbors().add(new Vertex(4));
+        v3.getNeighbors().add(new Vertex(5));
+
+        Vertex v4 = new Vertex(4);
+        v4.getNeighbors().add(new Vertex(3));
+
+        Vertex v5 = new Vertex(5);
+        v5.getNeighbors().add(new Vertex(1));
+        v5.getNeighbors().add(new Vertex(3));
+
+        complement.add(v1);
+        complement.add(v2);
+        complement.add(v3);
+        complement.add(v4);
+        complement.add(v5);
+
+        Edge e1 = new Edge(v1, v2);
+        e1.orient(v1);
+
+        Edge e2 = new Edge(v3, v4);
+        e2.orient(v3);
+
+        Edge e3 = new Edge(v1, v5);
+        e3.orient(v5);
+
+        Edge e4 = new Edge(v3, v5);
+        e4.orient(v5);
+
+        Map<Edge, Edge> edgeMap = new HashMap<>();
+
+        edgeMap.put(e1, e1);
+        edgeMap.put(e2, e2);
+        edgeMap.put(e3,e3);
+        edgeMap.put(e4,e4);*/
+
+        try {
+            IntervalFactory.findTwoTwo(complement, edgeMap);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return;
+        }
+
+        System.out.println("SUCCESS");
     }
 
     private void createPosetGraph(final SwingNode swingNode, Set<Vertex> vertices) {

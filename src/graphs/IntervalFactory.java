@@ -24,7 +24,7 @@ public class IntervalFactory {
         return list;
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
 
         Set<Vertex> graph = createComplement(createGraph(50));
         Set<Edge> edgeList = createOrientation(graph);
@@ -43,7 +43,7 @@ public class IntervalFactory {
 
     }
 
-    public static void findTwoTwo(Set<Vertex> unchangedVertexSet, Map<Edge, Edge> edgeSet) {
+    public static void findTwoTwo(Set<Vertex> unchangedVertexSet, Map<Edge, Edge> edgeSet) throws Exception {
 
         System.out.println("Finding a 2-2. Warning: this a non-polynomial algorithm");
         Set<PosetVertex> vertexSet = vertexToPoset(unchangedVertexSet, edgeSet);
@@ -74,25 +74,63 @@ public class IntervalFactory {
                     continue;
                 }
 
+                boolean result = false;
                 for (PosetVertex vertex1_1 : vertex1.upSet) {
                     for (PosetVertex vertex2_1 : vertex2.upSet) {
-                        checkTwoTwo(vertex1, vertex1_1, vertex2, vertex2_1, vertexMap);
+                        result = checkTwoTwo(vertex1, vertex1_1, vertex2, vertex2_1, vertexMap);
                     }
+                }
+
+                if (result) return;
+
+
+
+                for (PosetVertex vertex1_1 : vertex1.downSet) {
+                    for (PosetVertex vertex2_1 : vertex2.downSet) {
+                        result = checkTwoTwo(vertex1, vertex1_1, vertex2, vertex2_1, vertexMap);
+                    }
+                }
+
+                if (result) return;
+
+                for (PosetVertex vertex1_1 : vertex1.upSet) {
+                    for (PosetVertex vertex2_1 : vertex2.downSet) {
+                        result = checkTwoTwo(vertex1, vertex1_1, vertex2, vertex2_1, vertexMap);
+                    }
+                }
+
+                if (result) return;
+
+                for (PosetVertex vertex1_1 : vertex1.downSet) {
+                    for (PosetVertex vertex2_1 : vertex2.upSet) {
+                        result = checkTwoTwo(vertex1, vertex1_1, vertex2, vertex2_1, vertexMap);
+                    }
+                }
+
+                if (!result) {
+                    throw new Exception("OH NO");
                 }
 
             }
         }
     }
 
-    public static void checkTwoTwo(PosetVertex vertex1, PosetVertex vertex1_1,
+    public static boolean checkTwoTwo(PosetVertex vertex1, PosetVertex vertex1_1,
                                    PosetVertex vertex2, PosetVertex vertex2_2,
-                                   Map<PosetVertex, PosetVertex> vertexSet) {
+                                   Map<PosetVertex, PosetVertex> vertexSet) throws Exception {
         //do bfs on the upmap of vertex1
         Queue<PosetVertex> posetQueue = new LinkedList<>();
         Set<Vertex> visited = new HashSet<>();
 
-        visited.add(vertex1);
-        posetQueue.add(vertex1);
+        PosetVertex firstVertex;
+        if (vertex1.upSet.contains(vertex1_1)) {
+            firstVertex = vertex1;
+        } else {
+            firstVertex = vertex1_1;
+        }
+
+        visited.add(firstVertex);
+        posetQueue.add(firstVertex);
 
         boolean found = false;
         while (!posetQueue.isEmpty() && !found) {
@@ -110,6 +148,15 @@ public class IntervalFactory {
 
             }
         }
+
+        if (vertex2.upSet.contains(vertex2_2)) {
+            firstVertex = vertex2;
+        } else {
+            firstVertex = vertex2_2;
+        }
+
+        visited.add(firstVertex);
+        posetQueue.add(firstVertex);
 
         visited.add(vertex2);
         posetQueue.add(vertex2);
@@ -129,8 +176,12 @@ public class IntervalFactory {
         }
 
         if (!found) {
-            throw new RuntimeException("EXCEPTION: " + vertex1.toString() + " " + vertex2.toString());
+            System.out.println("EXCEPTION: " + vertex1.getLabel() + " " + vertex1_1.getLabel() + " | "
+                + vertex2.getLabel() + " " + vertex2_2.getLabel());
+            return false;
         }
+
+        return true;
 
         //do bfs on the update of vertex2
     }
