@@ -78,10 +78,7 @@ public class GraphDisplayerController {
             return;
         }
 
-        Alert pleaseWait = new Alert(Alert.AlertType.INFORMATION);
-        pleaseWait.setTitle("Graph creation");
-        pleaseWait.setHeaderText("Please wait. Graph being generated");
-        pleaseWait.show();
+
 
         Set<Vertex> graph = IntervalFactory.createGraph(Integer.parseInt(elementEntry.getText()));
         complement = IntervalFactory.createComplement(graph);
@@ -93,8 +90,6 @@ public class GraphDisplayerController {
         for (Edge e : edgeSet) {
             edgeMap.put(e, e);
         }
-
-        pleaseWait.hide();
     }
 
     @FXML
