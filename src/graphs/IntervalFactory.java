@@ -1,5 +1,6 @@
 package graphs;
 
+import exception.PosetException;
 import vertex.PosetVertex;
 import vertex.Vertex;
 
@@ -43,7 +44,7 @@ public class IntervalFactory {
 
     }
 
-    public static void findTwoTwo(Set<Vertex> unchangedVertexSet, Map<Edge, Edge> edgeSet) throws Exception {
+    public static void findTwoTwo(Set<Vertex> unchangedVertexSet, Map<Edge, Edge> edgeSet) throws PosetException {
 
         System.out.println("Finding a 2-2. Warning: this a non-polynomial algorithm");
         Set<PosetVertex> vertexSet = vertexToPoset(unchangedVertexSet, edgeSet);
@@ -74,42 +75,46 @@ public class IntervalFactory {
                     continue;
                 }
 
-                boolean result = false;
+                boolean result;
                 for (PosetVertex vertex1_1 : vertex1.upSet) {
                     for (PosetVertex vertex2_1 : vertex2.upSet) {
                         result = checkTwoTwo(vertex1, vertex1_1, vertex2, vertex2_1, vertexMap);
+                        if (!result) {
+                            throw new PosetException(vertex1, vertex1_1, vertex2, vertex2_1);
+                        }
                     }
                 }
-
-                if (result) return;
 
 
 
                 for (PosetVertex vertex1_1 : vertex1.downSet) {
                     for (PosetVertex vertex2_1 : vertex2.downSet) {
                         result = checkTwoTwo(vertex1, vertex1_1, vertex2, vertex2_1, vertexMap);
+                        if (!result) {
+                            throw new PosetException(vertex1, vertex1_1, vertex2, vertex2_1);
+                        }
                     }
                 }
-
-                if (result) return;
 
                 for (PosetVertex vertex1_1 : vertex1.upSet) {
                     for (PosetVertex vertex2_1 : vertex2.downSet) {
                         result = checkTwoTwo(vertex1, vertex1_1, vertex2, vertex2_1, vertexMap);
+                        if (!result) {
+                            throw new PosetException(vertex1, vertex1_1, vertex2, vertex2_1);
+                        }
                     }
                 }
-
-                if (result) return;
 
                 for (PosetVertex vertex1_1 : vertex1.downSet) {
                     for (PosetVertex vertex2_1 : vertex2.upSet) {
                         result = checkTwoTwo(vertex1, vertex1_1, vertex2, vertex2_1, vertexMap);
+                        if (!result) {
+                            throw new PosetException(vertex1, vertex1_1, vertex2, vertex2_1);
+                        }
                     }
                 }
 
-                if (!result) {
-                    throw new Exception("OH NO");
-                }
+
 
             }
         }
@@ -117,7 +122,7 @@ public class IntervalFactory {
 
     public static boolean checkTwoTwo(PosetVertex vertex1, PosetVertex vertex1_1,
                                    PosetVertex vertex2, PosetVertex vertex2_2,
-                                   Map<PosetVertex, PosetVertex> vertexSet) throws Exception {
+                                   Map<PosetVertex, PosetVertex> vertexSet) {
         //do bfs on the upmap of vertex1
         Queue<PosetVertex> posetQueue = new LinkedList<>();
         Set<Vertex> visited = new HashSet<>();

@@ -48,6 +48,7 @@ public class GraphVisualizer
         int sideLength = 20;
         int x = 20;
         int bottomLevel = 50 + 50 * maxLevel;
+        int offSet = 0;
         graph.getModel().beginUpdate();
         try
         {
@@ -59,7 +60,9 @@ public class GraphVisualizer
                     vertices.add(newVertexObject);
                     x += 100;
                 }
-                x = 20 + 50 * (thisLevel + 1);
+                x = offSet + 20 + 50 * (thisLevel + 1);
+
+                offSet += 29;
             }
 
             for (Edge edge : orientation) {
