@@ -26,29 +26,113 @@ public class IntervalFactory {
 
     public static void main(String[] args) {
 
-        Set<Vertex> graph = createGraph(5);
-        System.out.println(graph);
+        Set<Vertex> graph = createComplement(createGraph(50));
         Set<Edge> edgeList = createOrientation(graph);
         Map<Edge, Edge> edgeMap = new HashMap<>();
 
         for (Edge e : edgeList) {
             edgeMap.put(e, e);
         }
-        System.out.println(edgeList);
-        Set<PosetVertex> posetList = vertexToPoset(graph, edgeMap);
 
-        System.out.println(posetList);
+        findTwoTwo(graph, edgeMap);
+        System.out.println("SUCCESS");
+
+
+        System.out.println(edgeList);
+
 
     }
 
-    private static void findTwoTwo(Set<PosetVertex> vertexSet) {
-        List<Vertex> vertexList = new ArrayList<>(vertexSet);
+    public static void findTwoTwo(Set<Vertex> unchangedVertexSet, Map<Edge, Edge> edgeSet) {
+
+        System.out.println("Finding a 2-2. Warning: this a non-polynomial algorithm");
+        Set<PosetVertex> vertexSet = vertexToPoset(unchangedVertexSet, edgeSet);
+
+        Map<PosetVertex, PosetVertex> vertexMap = new HashMap<>();
+        for (PosetVertex v : vertexSet) {
+            vertexMap.put(v, v);
+        }
+
+
+        List<PosetVertex> vertexList = new ArrayList<>(vertexSet);
 
         for (int i = 0 ; i < vertexList.size(); i++) {
-            for (int j = 1; j < vertexList.size(); j++) {
+            PosetVertex vertex1 = vertexList.get(i);
+
+            if (vertex1.upSet.isEmpty() && vertex1.downSet.isEmpty()) {
+                continue;
+            }
+            for (int j = i + 1; j < vertexList.size(); j++) {
+                PosetVertex vertex2 = vertexList.get(2);
+
+                if (vertex1.upSet.contains(vertex1) || vertex1.downSet.contains(vertex2)
+                        || vertex2.upSet.contains(vertex1) || vertex2.downSet.contains(vertex1)) {
+                    continue;
+                }
+
+                if (vertex2.upSet.isEmpty() && vertex2.downSet.isEmpty()) {
+                    continue;
+                }
+
+                for (PosetVertex vertex1_1 : vertex1.upSet) {
+                    for (PosetVertex vertex2_1 : vertex2.upSet) {
+                        checkTwoTwo(vertex1, vertex1_1, vertex2, vertex2_1, vertexMap);
+                    }
+                }
 
             }
         }
+    }
+
+    public static void checkTwoTwo(PosetVertex vertex1, PosetVertex vertex1_1,
+                                   PosetVertex vertex2, PosetVertex vertex2_2,
+                                   Map<PosetVertex, PosetVertex> vertexSet) {
+        //do bfs on the upmap of vertex1
+        Queue<PosetVertex> posetQueue = new LinkedList<>();
+        Set<Vertex> visited = new HashSet<>();
+
+        visited.add(vertex1);
+        posetQueue.add(vertex1);
+
+        boolean found = false;
+        while (!posetQueue.isEmpty() && !found) {
+            PosetVertex curr = vertexSet.get(posetQueue.remove());
+            visited.add(curr);
+
+            if (curr.equals(vertex2) || curr.equals(vertex2_2)) {
+                found = true;
+                break;
+            }
+
+            for (PosetVertex v : curr.upSet) {
+                visited.add(curr);
+                posetQueue.add(v);
+
+            }
+        }
+
+        visited.add(vertex2);
+        posetQueue.add(vertex2);
+        while (!posetQueue.isEmpty() && !found) {
+            PosetVertex curr = vertexSet.get(posetQueue.remove());
+            visited.add(curr);
+
+            if (curr.equals(vertex1) || curr.equals(vertex1_1)) {
+                found = true;
+                break;
+            }
+
+            for (PosetVertex v : curr.upSet) {
+                visited.add(curr);
+                posetQueue.add(v);
+            }
+        }
+
+        if (!found) {
+            throw new RuntimeException("EXCEPTION: " + vertex1.toString() + " " + vertex2.toString());
+        }
+
+        //do bfs on the update of vertex2
     }
 
     private static Set<PosetVertex> vertexToPoset(Set<Vertex> vertexList, Map<Edge, Edge> edgeList) {
@@ -252,7 +336,13 @@ public class IntervalFactory {
                 orientedEdges++;
             }
         }
-        System.out.println(orientedEdges == edgeSet.size());
+        System.out.println("UNORIENTATED EDGES: ");
+
+        for (Edge e : edgeSet.values()) {
+            if (e.getOrient() == null) {
+                System.out.println(e);
+            }
+        }
 
         Set<Edge> output = new HashSet<>(edgeSet.values());
 
@@ -314,44 +404,6 @@ public class IntervalFactory {
                 levelList.put(level, set);
             }
         }
-
-        /*for (int i = 1; i <= topoList.size(); i++) {
-            levelList.put(i, 0);
-        }
-        Set<Vertex> visited = new HashSet<>();
-        for (Vertex v : topoList) {
-            visited.add(v);
-            for (Vertex neighbor : v.getNeighbors()) {
-                Edge key = new Edge(v, neighbor);
-
-                Edge value = edgeSet.get(key);
-
-                Vertex orientation = value.getOrient();
-
-                if (visited.contains(orientation)) continue;
-                if (levelList.containsKey(neighbor.getLabel())) {
-                    levelList.put(neighbor.getLabel(), levelList.get(neighbor.getLabel()) + 1);
-                } else {
-                    levelList.put(neighbor.getLabel(), 0);
-                }
-            }
-        }
-
-        Map<Integer, Set<Integer>> mappedList = new HashMap<>();
-
-        for (int i : levelList.keySet()) {
-            int level = levelList.get(i);
-
-            if ( mappedList.containsKey(level)) {
-                mappedList.get(level).add(i);
-            } else {
-                Set<Integer> newSet = new HashSet<>();
-
-                newSet.add(i);
-                mappedList.put(level, newSet);
-            }
-
-        }*/
 
         return levelList;
     }
