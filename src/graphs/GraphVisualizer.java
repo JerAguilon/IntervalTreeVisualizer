@@ -309,7 +309,7 @@ public class GraphVisualizer
 
     public static void main(String[] args)
     {
-        /*Set<Vertex> graph = IntervalFactory.createGraph(3);
+        /*Set<Vertex> graph = IntervalFactory.createIntervalGraph(3);
         Set<Vertex> complement = IntervalFactory.createComplement(graph);
         GraphVisualizer frame = new GraphVisualizer(graph);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

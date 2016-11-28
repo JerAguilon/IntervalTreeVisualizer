@@ -4,12 +4,14 @@ import exception.PosetException;
 import vertex.PosetVertex;
 import vertex.Vertex;
 
+import java.security.InvalidParameterException;
 import java.util.*;
 
 /**
  * Created by jeremy on 11/8/16.
  */
 public class IntervalFactory {
+
 
     public static List<Integer> createIntervalList(int size) {
         List<Integer> list = new ArrayList<>();
@@ -27,7 +29,7 @@ public class IntervalFactory {
 
     public static void main(String[] args) throws Exception {
 
-        Set<Vertex> graph = createComplement(createGraph(50));
+        Set<Vertex> graph = createComplement(createIntervalGraph(50));
         Set<Edge> edgeList = createOrientation(graph);
         Map<Edge, Edge> edgeMap = new HashMap<>();
 
@@ -257,11 +259,63 @@ public class IntervalFactory {
 
         return output;
     }
-    public static Set<Vertex> createGraph(int size) {
-        return createGraph(createIntervalList(size));
+
+    public static Set<Vertex> createGraph(int size, GraphOptions option) {
+        if (option.equals(GraphOptions.INTERVAL)) return createIntervalGraph(size);
+        if (option.equals(GraphOptions.RANDOM)) return createRandomGraph(size);
+        if (option.equals(GraphOptions.FIFTYFIFTY)) {
+            int result = new Random().nextInt(2);
+
+            if (result == 0) {
+                return createIntervalGraph(size);
+            } else {
+                return createRandomGraph(size);
+            }
+        }
+
+        throw new InvalidParameterException("Can't have any other options!");
     }
 
-    public static Set<Vertex> createGraph(List<Integer> intervalList) {
+    public static Set<Vertex> createRandomGraph(int size) {
+        int[][] arrRep = new int[size][size];
+
+        int problemStart = 1;
+        Random random = new Random();
+        for (int i = 0; i < arrRep.length; i++) {
+            for (int j = problemStart; j < arrRep.length; j++) {
+                arrRep[i][j]= random.nextInt(2);
+            }
+
+            problemStart++;
+        }
+
+        Map<Integer, Vertex> vertexMap = new HashMap<>();
+
+        for (int i = 1; i <= size; i++) {
+            vertexMap.put(i, new Vertex(i));
+        }
+
+        problemStart = 1;
+
+        for (int i = 0; i < arrRep.length; i++) {
+            for (int j = problemStart; j < arrRep.length; j++) {
+                if (arrRep[i][j] == 1) {
+                    vertexMap.get(i).getNeighbors().add(new Vertex(j));
+                    vertexMap.get(j).getNeighbors().add(new Vertex(i));
+                }
+            }
+
+            problemStart++;
+        }
+
+        return new HashSet<>(vertexMap.values());
+    }
+
+    public static Set<Vertex> createIntervalGraph(int size) {
+        return createIntervalGraph(createIntervalList(size));
+    }
+
+    public static Set<Vertex> createIntervalGraph(List<Integer> intervalList) {
         Set<Vertex> output = new TreeSet<>();
         TreeSet<Vertex> activeVertices = new TreeSet<>();
         for (int i : intervalList) {
