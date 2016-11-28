@@ -46,9 +46,7 @@ public class GraphDisplayerController {
 
     @FXML
     public void initialize() {
-        /*Integer[] arr = new Integer[] {3, 5, 1, 7, 3, 10, 5, 7, 2, 4, 4, 9, 8, 1, 9, 6, 10, 2, 6, 8};
 
-        List<Integer> list = Arrays.asList(arr);*/
         ToggleGroup group = new ToggleGroup();
 
         interval.setToggleGroup(group);
@@ -60,6 +58,8 @@ public class GraphDisplayerController {
 
     @FXML
     public void createGraph() {
+
+
         int value;
         try {
             value = Integer.parseInt(elementEntry.getText());
@@ -78,7 +78,8 @@ public class GraphDisplayerController {
             return;
         }
 
-
+        /*Integer[] arr = new Integer[] {5, 4, 9, 15, 14, 3, 11, 4, 15, 1, 6, 3, 8, 7, 14, 13, 5, 9, 13, 8, 10, 6, 1, 2, 7, 2, 12, 10, 11, 12};
+        List<Integer> list = Arrays.asList(arr);*/
 
         Set<Vertex> graph = IntervalFactory.createGraph(Integer.parseInt(elementEntry.getText()));
         complement = IntervalFactory.createComplement(graph);

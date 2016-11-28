@@ -435,8 +435,23 @@ public class IntervalFactory {
 
                     if (e.getOrient().equals(currentVertex)) {
                         level = Math.max(level, levelMap.get(previousVertex));
+
+                    }
+
+                    for (Vertex previousNeighbor : previousVertex.getNeighbors()) {
+                        if (!currentVertex.getNeighbors().contains(previousNeighbor)) {
+                            continue;
+                        }
+
+                        Edge previousEdge = edgeSet.get(new Edge(previousVertex, previousNeighbor));
+                        Edge currentEdge = edgeSet.get(new Edge(currentVertex, previousNeighbor));
+
+                        if (previousEdge.getOrient().equals(currentEdge.getOrient())) {
+                            edges.remove(previousEdge);
+                        }
                     }
                 }
+
             }
 
             level++;
