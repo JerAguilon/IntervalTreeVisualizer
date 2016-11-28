@@ -16,7 +16,7 @@ public class IntervalFactoryTest {
     @Test
     public void bruteForce22() throws Exception {
         for (int i = 0; i < 500; i++) {
-            Set<Vertex> graph = IntervalFactory.createGraph(50);
+            Set<Vertex> graph = IntervalFactory.createGraph(50, GraphOptions.INTERVAL);
             graph = IntervalFactory.createComplement(graph);
 
             Map<Edge, Edge> edgeMap = new HashMap<>();

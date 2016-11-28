@@ -1,9 +1,9 @@
 package controller;
 
+import com.sun.corba.se.impl.orbutil.graph.Graph;
+import com.sun.xml.internal.ws.api.message.ExceptionHasMessage;
 import exception.PosetException;
-import graphs.Edge;
-import graphs.GraphVisualizer;
-import graphs.IntervalFactory;
+import graphs.*;
 import javafx.embed.swing.SwingNode;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -44,20 +44,22 @@ public class GraphDisplayerController {
 
     Map<Edge, Edge> edgeMap = new HashMap<>();
 
+    ToggleGroup group = new ToggleGroup();
+
     @FXML
     public void initialize() {
 
-        ToggleGroup group = new ToggleGroup();
+        //group = new ToggleGroup();
 
         interval.setToggleGroup(group);
         random.setToggleGroup(group);
         fiftyFifty.setToggleGroup(group);
-
+        group.selectToggle(interval);
         createGraph();
     }
 
     @FXML
-    public void createGraph() {
+    public void createGraph()  {
 
 
         int value;
@@ -78,14 +80,21 @@ public class GraphDisplayerController {
             return;
         }
 
-        /*Integer[] arr = new Integer[] {5, 4, 9, 15, 14, 3, 11, 4, 15, 1, 6, 3, 8, 7, 14, 13, 5, 9, 13, 8, 10, 6, 1, 2, 7, 2, 12, 10, 11, 12};
-        List<Integer> list = Arrays.asList(arr);*/
+        String choice = ((RadioButton) group.getSelectedToggle()).getText();
+        GraphOptions option;
 
-        Set<Vertex> graph = IntervalFactory.createGraph(Integer.parseInt(elementEntry.getText()));
+        if (choice.equals("Interval only")) option = GraphOptions.INTERVAL;
+        else if (choice.equals("Random graph")) option = GraphOptions.RANDOM;
+        else option = GraphOptions.FIFTYFIFTY;
+
+        Set<Vertex> graph = IntervalFactory.createGraph(Integer.parseInt(elementEntry.getText()), option);
         complement = IntervalFactory.createComplement(graph);
         createUndirectedGraph(graphDisplay, graph);
         createUndirectedGraph(complementDisplay, complement);
+
         createDirectedGraph(directedDisplay, complement);
+
+
         createPosetGraph(posetDisplay, complement);
         Set<Edge> edgeSet = IntervalFactory.createOrientation(complement);
         for (Edge e : edgeSet) {
@@ -179,6 +188,7 @@ public class GraphDisplayerController {
             @Override
             public void run() {
                 swingNode.setContent(GraphVisualizer.createPosetRepresentation(vertices));
+
             }
         });
     }
@@ -190,13 +200,17 @@ public class GraphDisplayerController {
             }
         });
     }
-    private void createDirectedGraph(final SwingNode swingNode, Set<Vertex> vertices) {
+    private void createDirectedGraph(final SwingNode swingNode, Set<Vertex> vertices)  {
+
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
                 swingNode.setContent(GraphVisualizer.createDirectedGraph(vertices));
+
             }
         });
+
+
 
     }
 }

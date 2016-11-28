@@ -121,6 +121,8 @@ public class GraphVisualizer
         Collection<Edge> orientation = IntervalFactory.createOrientation(intervalGraph);
 
 
+
+
         mxGraph graph = new mxGraph();
 
         graph.setAllowDanglingEdges(false);

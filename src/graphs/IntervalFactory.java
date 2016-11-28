@@ -300,8 +300,9 @@ public class IntervalFactory {
         for (int i = 0; i < arrRep.length; i++) {
             for (int j = problemStart; j < arrRep.length; j++) {
                 if (arrRep[i][j] == 1) {
-                    vertexMap.get(i).getNeighbors().add(new Vertex(j));
-                    vertexMap.get(j).getNeighbors().add(new Vertex(i));
+                    //Add 1 because arrays start from 0 and our graph starts at 1
+                    vertexMap.get(i + 1).getNeighbors().add(new Vertex(j + 1));
+                    vertexMap.get(j + 1).getNeighbors().add(new Vertex(i + 1));
                 }
             }
 
@@ -440,7 +441,10 @@ public class IntervalFactory {
                 }
 
                 if (pointU && pointV) {
-                    throw new RuntimeException(currentEdge.u.toString() + " " + currentEdge.v.toString());
+                    System.out.println(currentEdge.u.getLabel() + " " + currentEdge.v.getLabel());
+                    Edge edge = new Edge(currentEdge.u, currentEdge.v);
+                    //find a way to state dual
+                    return new HashSet<>(edgeSet.values());
                 }
 
                 orientedEdges++;
@@ -580,7 +584,7 @@ public class IntervalFactory {
             if (!edgeSet.containsKey(edgeKey)) continue;
 
             Edge edgeValue = edgeSet.get(edgeKey);
-
+            System.out.println(edgeValue.getOrient());
             if (edgeValue.getOrient().equals(v)) continue;
 
             //we can now recurse on the neighbor
